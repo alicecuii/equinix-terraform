@@ -17,12 +17,18 @@ provider "equinix" {
 #   public_key = file("/Users/xiaoxuancui/Documents/GitHub/equinix-terraform/keys/id_rsa.pub")
 # }
 
+variable "facilities" {
+  type    = list(string)
+  default = ["sv", "ny"]
+}
+
 # Create new device with "key1" included. The device resource "depends_on" the
 # key, in order to make sure the key is created before the device.
 resource "equinix_metal_device" "test" {
-  hostname         = "test-device"
+  count = length(var.facilities)
+  hostname         = "test-device-${count.index}"
   plan             = "c3.small.x86"
-  metro            = "sv"
+  metro            = var.facilities[count.index]
   operating_system = "ubuntu_22_04"
   billing_cycle    = "hourly"
   project_id       = "b8dd41c7-1b01-4713-b0ea-c8e33e8c043d"
