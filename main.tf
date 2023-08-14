@@ -8,7 +8,7 @@ terraform {
 
 # Credentials for all Equinix resources
 provider "equinix" {
-  auth_token    = ""
+  auth_token    = "7XgPoUXrz9RzfaD6i8gQBsiTYZxuBo4i"
 }
 
 # # Create a new SSH key
